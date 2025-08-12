@@ -1,0 +1,24 @@
+run the js file to the terminal
+  npx nodemon index.js
+
+//Dynamic routing
+  - how to get data coming from fronend at backend route
+first create nodejs packages
+npm init
+npm i express
+npm i ejs(setting up ejs for ejs pages)
+   install ejs from npmsetup ejs as a middleware for view engine
+
+   setting up publice static files
+    -creating file public and in this file we include all of the fronend code of project
+       -images(static file)
+       -javascripts
+       -stylesheet
+
+now we move to design CSS
+  tailwindcss.com - get started - add the play CDN script to your HTML
+  copy the script portion of the code and paste to index.ejs file just below to css file import
+  
+Now comes to dynamic routing..
+Q. why it needed first?
+
