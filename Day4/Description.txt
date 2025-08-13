@@ -1,0 +1,52 @@
+We create a note taking well app
+-input area
+-text area
+-button
+after completing our frontend we move through our backend code
+
+we create a files folder on our code
+-now we can read a file directory using file system package
+
+ (fs.readdir(path[, options], callback))
+  now we can start our process 
+
+-reading task folder from files using fs module
+-displaying the files
+
+ app.get('/', function(req,res){
+    fs.readdir(`./files`, function(err, files){
+        console.log(files);
+    })
+    res.send("hello world");
+});
+
+displaying data extracted by fs.readdir on the view page
+ we want to show the file which are hidden in our html file so we can brings this file in our files
+  - we copy the <% %> symbol just above the 4 files and remove after that 4 file
+  - we create a if else statement for file showing in fronend or note
+
+After that we go on form section and looked to the 1st form and we create a method into "POST" like this
+ - <form action="/create" method="POST">
+
+Now go to the index.js file and create a route for form creation
+
+After creating a file now we have to create another route for reading this file 
+ -   <a href="/file/<%=val %>" //(displaying the data on file) class="text-blue-500 inline-block mt-3">Read More</a>  
+ -  After that we create a show.ejs to render from index.js to directing another route and displaying the data onto it!
+
+Another thing is we have to edit the file using fs.rename and for that thing we also create a edit.ejs function to rendering
+ - First of all we have to to create a form show in frontend
+ - After that we have to pass the POST method to showing the original contain of it like this 
+ <form action="/edit/<%= filename %>" method="POST" class="flex flex-col gap-4">
+            <!-- Editable filename -->
+            <input type="text" name="newFilename" value="<%= filename %>" 
+        -also change in textarea likethis <textarea> <%= filedata %> </textarea>
+
+The final thing is deleting the file
+  -  We have to create a delete form to verify our files
+  - we only create a route for delete using fs.unlink
+  - After clicking on delete we alert to confirmation in index.ejs using onsubmit attributes like this
+     onsubmit="return confirm('Are you sure you want to delete <%= val %>?
+
+   
+
