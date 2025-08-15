@@ -1,4 +1,4 @@
 
-
-$2b$10$VfpL8Mmcj.zWnhWOR1qhqORc8XuTmeM9Io6He7HQ8RQAsQpg/MOuu. - salt
+//Salt and hash string 
+$2b$10$VfpL8Mmcj.zWnhWOR1qhqORc8XuTmeM9Io6He7HQ8RQAsQpg/MOuu
 $2b$10$VfpL8Mmcj.zWnhWOR1qhqO
