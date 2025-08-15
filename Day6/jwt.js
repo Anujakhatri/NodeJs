@@ -1,3 +1,4 @@
+// bcrpt is a library package used for securely hashing and comparing passwords
 const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
