@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="max-w-5xl mx-auto py-10">
+        <h1 class="text-4xl font-bold mb-6">Dashboard</h1>
+        <p>Email: <span id="userEmail"></span></p>
+        <p>ID: <span id="userId"></span></p>
+        <p>Full Name: <span id="userName"></span></p>
+        <button id="logoutBtn" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Logout</button>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('jwtToken');
+        if (!token) {
+            window.location.href = '/';
+        }
+
+        // Fetch user profile
+        async function loadProfile() {
+            try {
+                const res = await fetch('/api/profile', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    document.getElementById('userEmail').textContent = data.user.email;
+                    document.getElementById('userId').textContent = data.user.id;
+                    document.getElementById('userName').textContent = data.user.fullName;
+                } else {
+                    // Invalid token, redirect to login
+                    localStorage.removeItem('jwtToken');
+                    window.location.href = '/';
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        loadProfile();
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('jwtToken');
+            window.location.href = '/';
+        });
+    </script>
+</body>
+</html>
