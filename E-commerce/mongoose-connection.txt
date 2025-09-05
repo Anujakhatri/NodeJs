@@ -1,0 +1,74 @@
+module.exports = mongoose.connection;
+ -mongoose.connection → is the active connection object to your MongoDB database (after you do mongoose.connect(...)).
+
+ -Exporting it with module.exports means you can reuse the same connection in other files.
+
+Q. How does mongoose.connection link with models?
+
+When you call mongoose.model("User", userSchema), Mongoose internally registers the model with the active connection (mongoose.connection).
+ const db = require("./db"); <-- this gives you mongoose.connection 
+-So the module.exports = mongoose.connection; part is basically just sharing the live MongoDB connection, while your models automatically attach themselves to it.
+  
+  Here's is the quick sample.
+
+scatch/
+├─ config/           # Database connection & other config
+│   └─ mongoose-connection.js
+├─ models/           # Mongoose schemas and models
+│   └─ owner-model.js
+├─ routes/           # Express route handlers
+│   └─ ownersRouter.js
+├─ views/            # HTML/EJS templates
+│   └─ index.ejs
+├─ app.js            # Main entry point
+
+
+| Folder | Role                                    | Connected To          |
+| ------ | --------------------------------------- | --------------------- |
+| config | Database & app settings                 | Models, app.js        |
+| models | Schemas & DB interaction                | Routes                |
+| routes | Handles HTTP requests                   | Models, views         |
+| views  | Frontend templates                      | Routes                |
+| app.js | Entry point, mounts routes, sets engine | Config, Routes, Views |
+
+
+             ┌───────────┐
+             │   app.js  │
+             ├───────────┤
+             │ - imports │
+             │   config  │
+             │ - mounts  │
+             │   routes  │
+             │ - sets    │
+             │   views   │
+             └─────┬─────┘
+                   │
+        ┌──────────┴───────────┐
+        │                      │
+  ┌─────────────┐        ┌─────────────┐
+  │   config/   │        │   routes/   │
+  │ mongoose-   │        │ ownersRouter│
+  │ connection.js│       │ productsRouter│
+  └─────────────┘        └─────┬───────┘
+        │                       │
+        │                       │
+  ┌─────────────┐        ┌─────────────┐
+  │   models/   │        │   views/    │
+  │ owner-model │        │ index.ejs   │
+  │ product-model│       │ ...other    │
+  └─────────────┘        └─────────────┘
+        │
+        ▼
+   MongoDB Database
+
+This flow ensures separation of concerns:
+
+Config → database settings
+
+Models → data structure
+
+Routes → API / HTTP logic
+
+Views → presentation
+
+App.js → glue everything together
