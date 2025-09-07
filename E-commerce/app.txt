@@ -1,0 +1,59 @@
+cd ~/Documents/NodeJs/NodeJs_Day7/scatch
+n
+ in finder open ~/Documents/NodeJs/NodeJs_Day7/SCATCH
+
+ Description about app.Js
+1.what does cookie-parser do?
+ - Cookie-parser is a middleware for Express that parses cookies attached to the client request object.
+   It makes cookies available as a JavaScript object via req.cookies, so you can easily read and use cookie values in your routes and middleware.
+
+2. app.use
+-app.use(Add middleware) adds middleware to your Express app.
+ Middleware runs for every request (unless a path is specified).
+
+-app.set(set config) is used to configure settings for your Express app, such as the view engine or custom variables.
+
+-app.get(Handles GET requests) is used to define a route handler for HTTP GET requests.
+  for example 
+    app.get("/", function(req, res) {
+        res.send("Hello World");
+    });
+
+
+3. What happening here? 
+  app.use("/owners", ownersRouter); 
+  app.use("/users",usersRouter);
+
+- app.use(path, router) → mounts a router object at a specific base path.
+- those routers (ownersRouter, usersRouter) are usually directly related to models like Owner and User in your MongoDB via Mongoose.
+
+4. What a Debugger Does?
+  A debugger gives you tools to inspect your program while it runs:
+
+ -Breakpoints – Pause your code at a specific line so you can see what’s happening.
+ -Step Execution – Run your code line by line to see exactly where it breaks.
+ -Variable Inspection – Check the values of variables at any point.
+ -Call Stack – See the chain of function calls that led to the current point.
+ -Watch Expressions – Monitor specific variables or calculations as the code runs.
+
+
+5. What Environment Variables Are?
+  -They are like placeholders for values your app needs, e.g., API URLs, database credentials, secret keys.
+   -Instead of hardcoding these values into your code, you store them in environment variables.
+      for examples:
+        // Instead of this (hardcoded)
+        const DB_URL = "mongodb://localhost:27017/mydb";
+
+        // Use environment variable
+        const DB_URL = process.env.DB_URL;
+
+  Q.Why We Need Them?
+   Environment variables make your app secure, flexible, and easier to manage, especially when working with multiple environments(developement, testing , production) or sensitive data.
+
+6. What config does?
+
+ -Holds environment-specific settings: development, testing, production.
+ -Keeps sensitive info out of the main code (like database passwords, API keys).
+ -Makes it easy to change values without editing the code.
+
+ 
